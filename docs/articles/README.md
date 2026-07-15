@@ -10,7 +10,7 @@ The thesis of the whole series: **the tool should match the phase of the problem
 | Wk | Article | Source | Status |
 |----|---------|--------|--------|
 | 1 | [From prototype to product: why I'm rewriting a working Python app in Java](01-from-prototype-to-product.md) | ADR-0008 | Draft |
-| 2 | Sharpening the language: a DDD glossary and killing "float-soup" | CONTEXT.md | Planned |
+| 2 | [Sharpening the language: a DDD glossary and killing "float-soup"](02-sharpening-the-language.md) | CONTEXT.md | Draft |
 | 3 | Hexagonal + modular monolith (and why not microservices) | ADR-0001 | Planned |
 | 4 | "My ML model is 4 numbers": reimplementing scikit-learn in Java | ADR-0005 | Planned |
 | 5 | One source of truth: escaping the in-memory-cache trap | ADR-0002 | Planned |
