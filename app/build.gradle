@@ -1,0 +1,63 @@
+// Application/bootstrap module: composes the four bounded-context modules
+// plus the shared domain core, and hosts the Spring Boot main class and the
+// Spring Modulith module-boundary verification test.
+plugins {
+    id 'java'
+    alias(libs.plugins.spring.boot)
+}
+
+dependencies {
+    implementation platform(libs.spring.boot.dependencies)
+    implementation platform(libs.spring.modulith.bom)
+
+    implementation project(':domain-core')
+    implementation project(':valuation')
+    implementation project(':market-data')
+    implementation project(':calibration')
+    implementation project(':identity')
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.modulith:spring-modulith-starter-core'
+
+    testImplementation platform(libs.spring.boot.dependencies)
+    testImplementation platform(libs.spring.modulith.bom)
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.modulith:spring-modulith-starter-test'
+}
+
+// A separate source set for tests that require Docker (Testcontainers).
+// Kept out of the default `test` task / `build`/`check` lifecycle so
+// `./gradlew build` stays green on machines without Docker; run explicitly
+// with `./gradlew integrationTest` wherever Docker is available (e.g. CI).
+sourceSets {
+    integrationTest {
+        java.srcDir 'src/integrationTest/java'
+        resources.srcDir 'src/integrationTest/resources'
+        compileClasspath += sourceSets.main.output + sourceSets.test.output
+        runtimeClasspath += sourceSets.main.output + sourceSets.test.output
+    }
+}
+
+configurations {
+    integrationTestImplementation.extendsFrom testImplementation
+    integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
+}
+
+dependencies {
+    integrationTestImplementation platform(libs.spring.boot.dependencies)
+    integrationTestImplementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    integrationTestImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    integrationTestImplementation 'org.testcontainers:junit-jupiter'
+    integrationTestImplementation 'org.testcontainers:postgresql'
+    integrationTestRuntimeOnly 'org.postgresql:postgresql'
+}
+
+tasks.register('integrationTest', Test) {
+    description = 'Runs integration tests that require Docker (Testcontainers). Not part of build/check.'
+    group = 'verification'
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    useJUnitPlatform()
+    shouldRunAfter test
+}

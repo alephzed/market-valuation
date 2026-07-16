@@ -1,0 +1,13 @@
+// Bounded context: Market Data Acquisition (supporting, anti-corruption
+// layer). Fetches and parses Treasury Yield, Treasury Curve Forecast,
+// Market Data, Stock Quote, and Shiller Data from external sources.
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    implementation platform(libs.spring.boot.dependencies)
+
+    api project(':domain-core')
+    implementation 'org.springframework:spring-context'
+}
