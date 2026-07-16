@@ -1,0 +1,12 @@
+[versions]
+spring-boot = "3.3.13"
+spring-modulith = "1.2.13"
+junit = "5.11.4"
+
+[libraries]
+spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
+spring-modulith-bom = { module = "org.springframework.modulith:spring-modulith-bom", version.ref = "spring-modulith" }
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }

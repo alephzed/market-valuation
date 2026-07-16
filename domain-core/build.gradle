@@ -1,0 +1,11 @@
+// Pure domain module: no Spring, no JPA, no web. Enforces the hexagonal
+// boundary from ADR-0001 - the domain core must be usable outside a
+// container and free of infrastructure concerns.
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    // Intentionally no non-test dependencies: this module must remain
+    // pure Java, dependency-free of Spring/JPA/web.
+}

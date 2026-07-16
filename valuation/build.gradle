@@ -1,0 +1,14 @@
+// Bounded context: Valuation (core). Fair Value computation across the four
+// Earnings Scenarios, Valuation Verdict, and the Valuation aggregate.
+// Pure domain logic at its center, but may use Spring's context (not web,
+// not JPA) to expose application services to the app module.
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    implementation platform(libs.spring.boot.dependencies)
+
+    api project(':domain-core')
+    implementation 'org.springframework:spring-context'
+}

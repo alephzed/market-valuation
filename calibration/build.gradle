@@ -1,0 +1,12 @@
+// Bounded context: Model Calibration (supporting). Fits Coefficients by
+// ordinary least squares over Shiller Data and persists them.
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    implementation platform(libs.spring.boot.dependencies)
+
+    api project(':domain-core')
+    implementation 'org.springframework:spring-context'
+}

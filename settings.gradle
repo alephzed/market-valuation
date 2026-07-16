@@ -1,0 +1,12 @@
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+
+rootProject.name = 'market-valuation'
+
+include 'domain-core'
+include 'valuation'
+include 'market-data'
+include 'calibration'
+include 'identity'
+include 'app'
