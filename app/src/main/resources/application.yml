@@ -1,3 +1,19 @@
 spring:
   application:
     name: market-valuation
+
+# Structured (JSON) logging via Spring Boot's built-in support (ECS format),
+# so trace ids and request fields are machine-parseable in every environment.
+logging:
+  structured:
+    format:
+      console: ecs
+
+# Micrometer Tracing: read/emit W3C trace context and always sample so the
+# trace id is present in the MDC and in log lines for every request.
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      type: w3c
