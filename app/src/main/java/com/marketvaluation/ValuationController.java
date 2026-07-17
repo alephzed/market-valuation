@@ -4,6 +4,8 @@ import com.marketvaluation.domain.SymbolCatalog;
 import com.marketvaluation.valuation.GetValuation;
 import com.marketvaluation.valuation.UnknownSymbolException;
 import com.marketvaluation.valuation.Valuation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/symbols")
 public class ValuationController {
 
+    private static final Logger log = LoggerFactory.getLogger(ValuationController.class);
+
     private final GetValuation getValuation;
     private final SymbolCatalog symbolCatalog;
 
@@ -33,6 +37,7 @@ public class ValuationController {
 
     @GetMapping("/{symbol}/valuation")
     public ValuationResponse valuation(@PathVariable String symbol) {
+        log.debug("Serving Valuation for public symbol id {}", symbol);
         Valuation valuation = getValuation.forSymbol(symbolCatalog.fromPublicId(symbol));
         return ValuationResponse.from(valuation, symbol);
     }
